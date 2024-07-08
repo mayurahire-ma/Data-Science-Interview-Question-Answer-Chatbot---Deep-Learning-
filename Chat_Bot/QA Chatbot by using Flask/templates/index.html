@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        #question {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        #askButton {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #answer {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>QA Chatbot</h1>
+    <div>
+        <label for="question">Ask a question:</label>
+        <input type="text" id="question" name="question">
+        <button id="askButton">Ask</button>
+    </div>
+    <div>
+        <h2>Answer:</h2>
+        <p id="answer"></p>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#askButton').click(function() {
+                var question = $('#question').val();
+                $.post('/get_answer', { question: question }, function(data) {
+                    $('#answer').text(data.answer);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
